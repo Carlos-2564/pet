@@ -173,6 +173,22 @@ class DogGIFPlayer:
             )
             self.save_gif_hashes()
             messagebox.showinfo("完成", "哈希值已更新，当前动图文件已被认可")
+            if __name__ == "__main__":
+             try:
+                 root = tk.Tk()
+                 app = DogGIFPlayer(root)
+                 root.mainloop()
+             except Exception as e:
+        # 错误日志保存到用户目录（方便排查）
+              log_dir = (
+            os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), '恋与深空桌宠配置')
+            if getattr(sys, 'frozen', False) else os.path.dirname(__file__)
+        )
+        os.makedirs(log_dir, exist_ok=True)
+        error_log_path = os.path.join(log_dir, 'error.log')
+        with open(error_log_path, 'w', encoding='utf-8') as f:
+            f.write(str(e))
+        messagebox.showerror("程序异常", f"错误信息已保存到 {error_log_path}，可凭此排查问题")
 
     def create_context_menu(self):
         """创建右键菜单（新增“更多桌宠”入口）"""
@@ -555,3 +571,5 @@ class DogGIFPlayer:
             "关于作者",
             "此软件由Carlos Deng独立开发完成，想了解更多可联系carlos.dh.usfrcn0528@gmail.com\n\n严重声明：本软件禁止二次售卖！"
         )
+
+
